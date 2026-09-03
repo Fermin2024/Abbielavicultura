@@ -10,37 +10,53 @@
   *{margin:0;padding:0;box-sizing:border-box}
   body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--crema);color:var(--texto);min-height:100vh}
 
-  /* AUTH */
-  .auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,#2f6b3a,#1d4527 70%)}
-  .auth-card{background:#fff;border-radius:20px;padding:32px;width:100%;max-width:420px;box-shadow:0 30px 60px rgba(0,0,0,.25)}
+  .auth-wrap{min-height:100vh;padding:20px;background:linear-gradient(135deg,#2f6b3a,#1d4527 70%)}
+  .auth-container{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:start}
+  .auth-card{background:#fff;border-radius:20px;padding:32px;box-shadow:0 30px 60px rgba(0,0,0,.25)}
   .auth-card h1{font-size:1.5rem;margin-bottom:4px}
   .auth-card .sub{color:var(--gris);font-size:.9rem;margin-bottom:22px}
+  .planes-landing{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:28px;color:#fff;backdrop-filter:blur(10px)}
+  .planes-landing h2{color:#fff;margin-bottom:6px}
+  .planes-landing p{color:#cfe3cc;margin-bottom:18px;font-size:.95rem}
+  .plan-landing{background:#fff;color:var(--texto);border-radius:14px;padding:18px;margin-bottom:12px;border:2px solid var(--linea)}
+  .plan-landing.destacado{border-color:var(--oro)}
+  .plan-landing h3{font-size:1rem;margin-bottom:4px}
+  .plan-landing .precio{font-size:1.8rem;font-weight:800;color:var(--verde);margin:6px 0}
+  .plan-landing ul{margin:10px 0 0 18px;font-size:.88rem;color:var(--gris)}
+  .plan-landing li{margin-bottom:3px}
+  .plan-landing .ahorro{display:inline-block;background:var(--oro);color:#fff;padding:2px 8px;border-radius:6px;font-size:.75rem;font-weight:700;margin-left:6px}
+  @media(max-width:768px){.auth-container{grid-template-columns:1fr}}
+
   .auth-tabs{display:flex;gap:6px;background:var(--crema);border-radius:12px;padding:4px;margin-bottom:20px}
   .auth-tab{flex:1;border:none;background:none;padding:10px;border-radius:9px;cursor:pointer;font:inherit;font-weight:600;color:var(--gris)}
   .auth-tab.activa{background:#fff;color:var(--verde);box-shadow:0 2px 6px rgba(0,0,0,.06)}
-  .campo{margin-bottom:14px}
+  .campo{margin-bottom:14px;position:relative}
   .campo label{display:block;font-size:.85rem;font-weight:600;margin-bottom:5px}
   .campo input,.campo select,.campo textarea{width:100%;padding:11px 12px;border:1px solid var(--linea);border-radius:10px;font:inherit;background:#fff}
   .campo input:focus,.campo select:focus,.campo textarea:focus{outline:2px solid var(--verde);border-color:transparent}
+  .toggle-pass{position:absolute;right:10px;top:33px;background:none;border:none;cursor:pointer;padding:6px;font-size:1.1rem;opacity:.6}
+  .toggle-pass:hover{opacity:1}
   .btn{border:none;border-radius:10px;padding:12px 20px;font:inherit;font-weight:700;cursor:pointer;transition:transform .15s;width:100%}
-  .btn:hover{transform:translateY(-1px)}
+  .btn:hover:not(:disabled){transform:translateY(-1px)}
+  .btn:disabled{opacity:.6;cursor:not-allowed}
   .btn-prim{background:linear-gradient(135deg,var(--verde),#3f8a4d);color:#fff}
   .btn-sec{background:#efece3;color:var(--texto);width:auto}
+  .btn-danger{background:var(--rojo);color:#fff}
   .mensaje{padding:12px;border-radius:10px;font-size:.9rem;margin-bottom:14px;display:none}
   .mensaje.error{display:block;background:#fdeeec;color:#b04a35;border:1px solid #f0c9c0}
   .mensaje.ok{display:block;background:#e9f7ec;color:#2f6b3a;border:1px solid #bfe3c6}
   .mensaje.info{display:block;background:#eef3fb;color:#2d4a7a;border:1px solid #c9d8f0}
 
-  /* APP */
   header{background:linear-gradient(135deg,#2f6b3a,#1d4527 70%);color:#fff;padding:20px 6vw 16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
   header h1{font-size:1.5rem}
-  .user-info{display:flex;align-items:center;gap:10px;font-size:.88rem}
+  .user-info{display:flex;align-items:center;gap:10px;font-size:.88rem;flex-wrap:wrap}
   .badge{padding:3px 10px;border-radius:999px;font-size:.75rem;font-weight:700}
   .badge-admin{background:var(--oro);color:#fff}
   .badge-activo{background:#bfe3c6;color:#1d4527}
   .badge-prueba{background:#fde68a;color:#7a5a10}
   .badge-vencido{background:#fca5a5;color:#7f1d1d}
   .badge-pendiente{background:#cbd5e1;color:#334155}
+  .badge-baneado{background:#7f1d1d;color:#fff}
   .logout{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:6px 12px;border-radius:8px;cursor:pointer;font:inherit;font-size:.85rem}
   .logout:hover{background:rgba(255,255,255,.25)}
 
@@ -124,15 +140,21 @@
   .admin-panel{background:#fff;border:1px solid var(--linea);border-radius:16px;padding:20px;margin-bottom:20px;box-shadow:0 2px 10px rgba(60,50,20,.05)}
   .admin-panel h3{margin-bottom:12px;color:var(--verde)}
   .usuario-row{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--crema);border-radius:10px;padding:12px;margin-bottom:8px;flex-wrap:wrap}
+  .usuario-row.baneado{opacity:.55;border:2px solid var(--rojo)}
   .usuario-info{flex:1;min-width:200px}
   .usuario-info b{display:block}
-  .usuario-info span{font-size:.82rem;color:var(--gris)}
+  .usuario-info span{font-size:.82rem;color:var(--gris);display:block}
   .usuario-actions{display:flex;gap:6px;flex-wrap:wrap}
-  .usuario-actions button{border:1px solid var(--linea);background:#fff;border-radius:8px;padding:6px 10px;cursor:pointer;font-size:.82rem}
+  .usuario-actions button{border:1px solid var(--linea);background:#fff;border-radius:8px;padding:6px 10px;cursor:pointer;font-size:.82rem;transition:all .15s}
   .usuario-actions button:hover{background:var(--verde);color:#fff;border-color:var(--verde)}
   .usuario-actions button.danger:hover{background:var(--rojo);border-color:var(--rojo)}
+  .usuario-actions button.warn:hover{background:var(--oro);border-color:var(--oro)}
+  .usuario-actions button.block:hover{background:#6b21a8;border-color:#6b21a8}
   .prueba-form,.config-form{background:var(--crema);border-radius:12px;padding:14px;margin-bottom:14px}
   .prueba-form .fila,.config-form .fila{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px}
+  .lista-baneados{background:#fdeeec;border:1px solid #f0c9c0;border-radius:12px;padding:14px;margin-top:10px}
+  .lista-baneados h4{margin-bottom:10px;color:var(--rojo)}
+  .baneado-item{display:flex;justify-content:space-between;background:#fff;border-radius:8px;padding:10px;margin-bottom:6px;font-size:.88rem}
   @media(max-width:640px){.fila,.fila3,.fila2,.proscons,.prueba-form .fila,.config-form .fila{grid-template-columns:1fr}}
 
   .overlay{position:fixed;inset:0;background:rgba(20,25,15,.55);display:none;align-items:flex-start;justify-content:center;padding:40px 16px;z-index:50;overflow-y:auto}
@@ -145,29 +167,47 @@
 
   .loader{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px}
   @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* Confirmación modal */
+  .confirm-box{background:#fff;border-radius:18px;max-width:420px;width:100%;padding:26px;box-shadow:0 20px 50px rgba(0,0,0,.3)}
+  .confirm-box h3{margin-bottom:10px}
+  .confirm-box p{color:var(--gris);margin-bottom:18px;line-height:1.5}
+  .confirm-box .warn{background:#fffbeb;border:1px solid #fde68a;padding:12px;border-radius:10px;margin-bottom:14px;font-size:.9rem;color:#78350f}
 </style>
 </head>
 <body>
 
 <!-- PANTALLA AUTH -->
 <div id="pantalla-auth" class="auth-wrap" style="display:none">
-  <div class="auth-card">
-    <h1>🐔 Control de Aves</h1>
-    <p class="sub">Registro de cría profesional</p>
-    <div class="auth-tabs">
-      <button class="auth-tab activa" data-m="login">Iniciar sesión</button>
-      <button class="auth-tab" data-m="register">Registrarse</button>
+  <div class="auth-container">
+    <div class="planes-landing">
+      <h2>🐔 Control de Aves</h2>
+      <p>La plataforma profesional para criadores. Gestiona animales, razas, cruces y nidadas desde cualquier dispositivo.</p>
+      <div id="planes-landing-lista"></div>
+      <div style="font-size:.82rem;color:#cfe3cc;margin-top:14px">✨ Pago por transferencia · Activación inmediata tras confirmación</div>
     </div>
-    <div id="auth-msg" class="mensaje"></div>
-    <form id="form-auth">
-      <div id="campos-registro" style="display:none">
-        <div class="campo"><label>Nombre completo</label><input id="a-nombre"></div>
-        <div class="campo"><label>País / Ciudad</label><input id="a-pais"></div>
+    <div class="auth-card">
+      <h1>Accede a tu cuenta</h1>
+      <p class="sub">O regístrate para empezar</p>
+      <div class="auth-tabs">
+        <button class="auth-tab activa" data-m="login">Iniciar sesión</button>
+        <button class="auth-tab" data-m="register">Registrarse</button>
       </div>
-      <div class="campo"><label>Correo electrónico</label><input type="email" id="a-email" required></div>
-      <div class="campo"><label>Contraseña</label><input type="password" id="a-pass" required minlength="6"></div>
-      <button type="submit" class="btn btn-prim" id="btn-auth">Entrar</button>
-    </form>
+      <div id="auth-msg" class="mensaje"></div>
+      <form id="form-auth">
+        <div id="campos-registro" style="display:none">
+          <div class="campo"><label>Nombre completo *</label><input id="a-nombre"></div>
+          <div class="campo"><label>País / Ciudad</label><input id="a-pais"></div>
+        </div>
+        <div class="campo"><label>Correo electrónico *</label><input type="email" id="a-email" required></div>
+        <div class="campo">
+          <label>Contraseña *</label>
+          <input type="password" id="a-pass" required minlength="6">
+          <button type="button" class="toggle-pass" onclick="togglePass('a-pass',this)">👁️</button>
+        </div>
+        <button type="submit" class="btn btn-prim" id="btn-auth">Entrar</button>
+      </form>
+    </div>
   </div>
 </div>
 
@@ -192,12 +232,10 @@
   </div>
 
   <main>
-    <!-- BLOQUEO -->
     <section id="vista-bloqueado" class="vista" style="display:none">
       <div class="estado-cuenta" id="estado-bloqueado"></div>
     </section>
 
-    <!-- MIS ANIMALES -->
     <section id="vista-animales" class="vista">
       <div id="stats" class="stats"></div>
       <div class="buscar">🔍 <input id="buscador" placeholder="Buscar por número, color, raza o nota…"></div>
@@ -212,12 +250,10 @@
       <div id="lista-animales" class="grid-animales"></div>
     </section>
 
-    <!-- RAZAS -->
     <section id="vista-razas" class="vista" style="display:none">
       <div id="lista-razas" class="cols-razas"></div>
     </section>
 
-    <!-- CRUCES -->
     <section id="vista-cruces" class="vista" style="display:none">
       <div class="calc">
         <h3>🧮 Calculadora de cruces</h3>
@@ -244,18 +280,14 @@
       </div>
     </section>
 
-    <!-- REGISTRO -->
     <section id="vista-registro" class="vista" style="display:none">
       <div class="toolbar">
         <h3>📋 Registro de actividad</h3>
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <button class="btn btn-sec" onclick="exportar()">📤 Exportar copia</button>
-        </div>
+        <button class="btn btn-sec" onclick="confirmarExportar()">📤 Exportar copia</button>
       </div>
       <div id="lista-registro"></div>
     </section>
 
-    <!-- ADMIN -->
     <section id="vista-admin" class="vista" style="display:none">
       <div class="admin-panel">
         <h3>🎛️ Panel de administrador</h3>
@@ -267,29 +299,36 @@
             <div class="campo" style="margin:0"><label>Horas de prueba</label><input id="cfg-prueba" type="number"></div>
           </div>
           <div class="campo"><label>Moneda (símbolo)</label><input id="cfg-moneda"></div>
-          <div class="campo"><label>Datos bancarios para transferencias</label><textarea id="cfg-banco" rows="3"></textarea></div>
-          <button class="btn btn-prim" style="width:auto" onclick="guardarConfig()">Guardar configuración</button>
+          <div class="campo"><label>Datos bancarios</label><textarea id="cfg-banco" rows="3"></textarea></div>
+          <button class="btn btn-prim" style="width:auto" onclick="confirmarGuardarConfig()">💾 Guardar configuración</button>
         </div>
         <div class="prueba-form">
-          <b>🧪 Crear usuario de prueba (acceso temporal)</b>
+          <b>🧪 Crear usuario de prueba</b>
           <div class="fila" style="margin-top:10px">
             <div class="campo" style="margin:0"><label>Correo</label><input id="pr-email" type="email"></div>
             <div class="campo" style="margin:0"><label>Contraseña</label><input id="pr-pass" type="text" value="prueba123"></div>
             <div class="campo" style="margin:0"><label>Duración (horas)</label><input id="pr-horas" type="number" value="24"></div>
           </div>
-          <div class="campo"><label>Nombre (opcional)</label><input id="pr-nombre"></div>
-          <button class="btn btn-prim" style="width:auto" onclick="crearPrueba()">Crear cuenta de prueba</button>
+          <div class="campo"><label>Nombre</label><input id="pr-nombre"></div>
+          <button class="btn btn-prim" style="width:auto" onclick="confirmarCrearPrueba()">Crear cuenta de prueba</button>
         </div>
       </div>
+
       <div class="admin-panel">
         <h3>👥 Usuarios registrados</h3>
         <div id="lista-usuarios"></div>
+      </div>
+
+      <div class="admin-panel">
+        <h3>🚫 Correos baneados permanentemente</h3>
+        <p style="color:var(--gris);font-size:.9rem;margin-bottom:10px">Estos correos nunca podrán registrarse de nuevo.</p>
+        <div id="lista-baneados"></div>
       </div>
     </section>
   </main>
 </div>
 
-<!-- MODAL NUEVO / EDITAR ANIMAL -->
+<!-- MODAL ANIMAL -->
 <div class="overlay" id="overlay">
   <div class="modal">
     <h3 id="modal-titulo">+ Nuevo animal</h3>
@@ -302,15 +341,15 @@
           <select id="f-sexo"><option value="hembra">♀ Hembra</option><option value="macho">♂ Macho</option></select></div>
       </div>
       <div class="fila">
-        <div class="campo"><label>Número identificador *</label><input id="f-numero" required></div>
-        <div class="campo"><label>Color de identificación</label><input id="f-color" placeholder="Ej: anilla roja"></div>
+        <div class="campo"><label>Número *</label><input id="f-numero" required></div>
+        <div class="campo"><label>Color</label><input id="f-color"></div>
       </div>
       <div class="fila">
-        <div class="campo"><label>Raza / tipo</label>
-          <input id="f-raza" list="lista-razas" placeholder="Selecciona o escribe"><datalist id="lista-razas"></datalist></div>
-        <div class="campo"><label>Fecha de nacimiento</label><input type="date" id="f-fecha"></div>
+        <div class="campo"><label>Raza</label>
+          <input id="f-raza" list="lista-razas"><datalist id="lista-razas"></datalist></div>
+        <div class="campo"><label>Nacimiento</label><input type="date" id="f-fecha"></div>
       </div>
-      <div class="campo"><label>Notas (opcional)</label><textarea id="f-notas" rows="2"></textarea></div>
+      <div class="campo"><label>Notas</label><textarea id="f-notas" rows="2"></textarea></div>
       <div class="botones">
         <button type="button" class="btn btn-sec" onclick="cerrarModal()">Cancelar</button>
         <button type="submit" class="btn btn-prim" id="btn-guardar-animal">Guardar animal</button>
@@ -319,13 +358,24 @@
   </div>
 </div>
 
+<!-- MODAL CONFIRM -->
+<div class="overlay" id="overlay-confirm">
+  <div class="confirm-box">
+    <h3 id="confirm-title">¿Confirmar?</h3>
+    <p id="confirm-msg"></p>
+    <div id="confirm-extra"></div>
+    <div class="botones">
+      <button class="btn btn-sec" onclick="cerrarConfirm()">Cancelar</button>
+      <button class="btn btn-prim" id="confirm-ok">Confirmar</button>
+    </div>
+  </div>
+</div>
+
 <script>
-/* ============ SUPABASE ============ */
 const SUPABASE_URL='https://qukhoixqnocycqjlqpbt.supabase.co';
 const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF1a2hvaXhxbm9jeWNxamxxcGJ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg0NTIzMDEsImV4cCI6MjEwNDAyODMwMX0.QhM8_dCjbIGF-1EPRfSgLOTuCUvpk-xHkWwtHFCd0rU';
 const sb=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
-/* ============ utilidades ============ */
 const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
@@ -333,6 +383,30 @@ let usuario=null,perfil=null,config={};
 let animales=[],cruces=[],registro=[];
 let filtro='todos',busqueda='',editandoId=null,ultimoCruce=null;
 
+/* ============ CONFIRM MODAL ============ */
+let confirmCallback=null;
+function confirmar(titulo,msg,okText,cb,tipo='prim',extraHTML=''){
+  $('#confirm-title').textContent=titulo;
+  $('#confirm-msg').innerHTML=msg;
+  $('#confirm-extra').innerHTML=extraHTML||'';
+  const btn=$('#confirm-ok');
+  btn.textContent=okText||'Confirmar';
+  btn.className=`btn btn-${tipo}`;
+  confirmCallback=cb;
+  $('#overlay-confirm').classList.add('abierto');
+}
+function cerrarConfirm(){$('#overlay-confirm').classList.remove('abierto');confirmCallback=null;}
+$('#confirm-ok').addEventListener('click',()=>{
+  if(confirmCallback)confirmCallback();
+  cerrarConfirm();
+});
+
+/* ============ UTIL ============ */
+function togglePass(id,btn){
+  const i=$('#'+id);
+  if(i.type==='password'){i.type='text';btn.textContent='🙈';}
+  else{i.type='password';btn.textContent='👁️';}
+}
 function fechaBonita(f){if(!f)return'';const p=f.split('-');return p.length===3?`${p[2]}/${p[1]}/${p[0]}`:f;}
 function fechaBonitaTS(ts){if(!ts)return'—';const d=new Date(ts);return d.toLocaleDateString('es',{day:'2-digit',month:'2-digit',year:'2-digit'})+' '+d.toLocaleTimeString('es',{hour:'2-digit',minute:'2-digit'});}
 function edad(f){
@@ -355,40 +429,40 @@ async function log(icono,txt){
 const RAZAS={gallina:["Leghorn","Rhode Island Red","Sussex","Wyandotte","Plymouth Rock","Orpington","Brahma","Araucana","Sedosa de Japón","Ponedora híbrida","Kikiriki","Otra / criolla"],codorniz:["Japónica (Coturnix japonica)","Europea (Coturnix coturnix)","Gigante","Blanca inglesa","Otra / criolla"]};
 const RAZAS_INFO={
  gallina:{
-  "Leghorn":{huevos:[280,320],alim:105,temp:"Activa y nerviosa",mad:18,pico:[2,12],rent:24,vida:[6,9],ventajas:["Máxima producción de huevos blancos","Consume poco alimento"],desventajas:["Se estresa con facilidad","Casi nunca es clueca"]},
-  "Rhode Island Red":{huevos:[200,260],alim:125,temp:"Dócil, rústica",mad:22,pico:[3,14],rent:30,vida:[8,10],ventajas:["Doble propósito","Muy resistente"],desventajas:["Puede dominar a otras aves"]},
-  "Sussex":{huevos:[240,260],alim:120,temp:"Tranquila y mansa",mad:20,pico:[3,13],rent:28,vida:[7,9],ventajas:["Postura constante","Temperamento dócil"],desventajas:["Escarba mucho","Tiende a clueca"]},
-  "Wyandotte":{huevos:[200,240],alim:120,temp:"Tranquila e independiente",mad:22,pico:[3,13],rent:28,vida:[7,9],ventajas:["Ornamental y productiva","Resiste frío"],desventajas:["Postura media"]},
-  "Plymouth Rock":{huevos:[200,240],alim:125,temp:"Dócil y confiada",mad:22,pico:[3,13],rent:28,vida:[8,10],ventajas:["Doble propósito clásica","Muy mansa"],desventajas:["Mayor consumo de alimento"]},
-  "Orpington":{huevos:[175,200],alim:130,temp:"Muy mansa",mad:24,pico:[4,13],rent:26,vida:[8,10],ventajas:["Excelente mascota","Buena clueca"],desventajas:["Producción baja-media","Tiende a engordar"]},
-  "Brahma":{huevos:[150,200],alim:140,temp:"Gigante tranquila",mad:28,pico:[5,14],rent:26,vida:[9,11],ventajas:["Imponente","Pone en invierno"],desventajas:["Madurez tardía","Come mucho"]},
-  "Araucana":{huevos:[150,200],alim:110,temp:"Viva e independiente",mad:24,pico:[4,13],rent:26,vida:[6,8],ventajas:["Huevos azules/verdes","Rústica"],desventajas:["Postura media","Vuela bien"]},
-  "Sedosa de Japón":{huevos:[80,120],alim:90,temp:"Dulce y cariñosa",mad:26,pico:[5,12],rent:20,vida:[7,9],ventajas:["Mejor clueca","Muy mansa"],desventajas:["Pocos huevos","Plumaje delicado"]},
-  "Ponedora híbrida":{huevos:[300,320],alim:115,temp:"Dócil y productiva",mad:19,pico:[2,12],rent:22,vida:[4,6],ventajas:["Máxima eficiencia","Pone joven"],desventajas:["Vida productiva corta","No transmite producción"]},
-  "Kikiriki":{huevos:[60,100],alim:60,temp:"Enérgica",mad:24,pico:[4,12],rent:22,vida:[6,8],ventajas:["Come poco","Alerta contra depredadores"],desventajas:["Huevos diminutos"]},
-  "Otra / criolla":{huevos:[120,180],alim:110,temp:"Rústica",mad:24,pico:[4,12],rent:26,vida:[5,8],ventajas:["Muy resistente","Bajo costo"],desventajas:["Producción variable"]}
+  "Leghorn":{huevos:[280,320],alim:105,temp:"Activa y nerviosa",mad:18,pico:[2,12],rent:24,vida:[6,9],ventajas:["Máxima producción","Consume poco"],desventajas:["Se estresa fácil","Casi nunca clueca"]},
+  "Rhode Island Red":{huevos:[200,260],alim:125,temp:"Dócil, rústica",mad:22,pico:[3,14],rent:30,vida:[8,10],ventajas:["Doble propósito","Muy resistente"],desventajas:["Puede dominar otras"]},
+  "Sussex":{huevos:[240,260],alim:120,temp:"Tranquila y mansa",mad:20,pico:[3,13],rent:28,vida:[7,9],ventajas:["Postura constante","Dócil"],desventajas:["Escarba mucho"]},
+  "Wyandotte":{huevos:[200,240],alim:120,temp:"Tranquila",mad:22,pico:[3,13],rent:28,vida:[7,9],ventajas:["Ornamental","Resiste frío"],desventajas:["Postura media"]},
+  "Plymouth Rock":{huevos:[200,240],alim:125,temp:"Dócil",mad:22,pico:[3,13],rent:28,vida:[8,10],ventajas:["Doble propósito","Mansa"],desventajas:["Come más"]},
+  "Orpington":{huevos:[175,200],alim:130,temp:"Muy mansa",mad:24,pico:[4,13],rent:26,vida:[8,10],ventajas:["Mascota ideal","Buena clueca"],desventajas:["Baja producción"]},
+  "Brahma":{huevos:[150,200],alim:140,temp:"Gigante tranquila",mad:28,pico:[5,14],rent:26,vida:[9,11],ventajas:["Imponente","Pone en invierno"],desventajas:["Madurez tardía"]},
+  "Araucana":{huevos:[150,200],alim:110,temp:"Viva",mad:24,pico:[4,13],rent:26,vida:[6,8],ventajas:["Huevos azules/verdes"],desventajas:["Postura media"]},
+  "Sedosa de Japón":{huevos:[80,120],alim:90,temp:"Dulce",mad:26,pico:[5,12],rent:20,vida:[7,9],ventajas:["Mejor clueca","Muy mansa"],desventajas:["Pocos huevos"]},
+  "Ponedora híbrida":{huevos:[300,320],alim:115,temp:"Dócil productiva",mad:19,pico:[2,12],rent:22,vida:[4,6],ventajas:["Máxima eficiencia"],desventajas:["Vida productiva corta"]},
+  "Kikiriki":{huevos:[60,100],alim:60,temp:"Enérgica",mad:24,pico:[4,12],rent:22,vida:[6,8],ventajas:["Come poco"],desventajas:["Huevos diminutos"]},
+  "Otra / criolla":{huevos:[120,180],alim:110,temp:"Rústica",mad:24,pico:[4,12],rent:26,vida:[5,8],ventajas:["Muy resistente"],desventajas:["Producción variable"]}
  },
  codorniz:{
-  "Japónica (Coturnix japonica)":{huevos:[250,300],alim:25,temp:"Nerviosa",mad:6,pico:[1,8],rent:10,vida:[2,3],ventajas:["Casi un huevo diario","Pone desde 6–7 semanas"],desventajas:["Muy nerviosa","No cría en cautiverio"]},
-  "Europea (Coturnix coturnix)":{huevos:[150,200],alim:22,temp:"Silvestre",mad:8,pico:[2,7],rent:9,vida:[2,4],ventajas:["Rústica"],desventajas:["Menos huevos","Vuela bien"]},
-  "Gigante":{huevos:[180,220],alim:32,temp:"Tranquila y pesada",mad:7,pico:[2,8],rent:10,vida:[2,3],ventajas:["Huevo y cuerpo grandes"],desventajas:["Come más"]},
-  "Blanca inglesa":{huevos:[200,250],alim:25,temp:"Dócil y productiva",mad:6,pico:[1,8],rent:10,vida:[2,3],ventajas:["Huevo grande","Plumaje vistoso"],desventajas:["Menos común"]},
-  "Otra / criolla":{huevos:[150,220],alim:25,temp:"Variable",mad:7,pico:[2,8],rent:9,vida:[2,3],ventajas:["Se adapta bien"],desventajas:["Producción variable"]}
+  "Japónica (Coturnix japonica)":{huevos:[250,300],alim:25,temp:"Nerviosa",mad:6,pico:[1,8],rent:10,vida:[2,3],ventajas:["Casi un huevo diario"],desventajas:["Muy nerviosa"]},
+  "Europea (Coturnix coturnix)":{huevos:[150,200],alim:22,temp:"Silvestre",mad:8,pico:[2,7],rent:9,vida:[2,4],ventajas:["Rústica"],desventajas:["Menos huevos"]},
+  "Gigante":{huevos:[180,220],alim:32,temp:"Tranquila pesada",mad:7,pico:[2,8],rent:10,vida:[2,3],ventajas:["Cuerpo grande"],desventajas:["Come más"]},
+  "Blanca inglesa":{huevos:[200,250],alim:25,temp:"Dócil",mad:6,pico:[1,8],rent:10,vida:[2,3],ventajas:["Huevo grande"],desventajas:["Menos común"]},
+  "Otra / criolla":{huevos:[150,220],alim:25,temp:"Variable",mad:7,pico:[2,8],rent:9,vida:[2,3],ventajas:["Se adapta"],desventajas:["Variable"]}
  }};
-const INFO_DEF={gallina:{huevos:[150,200],alim:115,temp:"Datos no disponibles",mad:22,pico:[3,12],rent:26,vida:[6,8],ventajas:["Genética propia"],desventajas:["Datos sin verificar"]},codorniz:{huevos:[150,220],alim:25,temp:"Datos no disponibles",mad:7,pico:[2,8],rent:10,vida:[2,3],ventajas:["Genética propia"],desventajas:["Datos sin verificar"]}};
+const INFO_DEF={gallina:{huevos:[150,200],alim:115,temp:"Sin datos",mad:22,pico:[3,12],rent:26,vida:[6,8],ventajas:["Genética propia"],desventajas:["Sin verificar"]},codorniz:{huevos:[150,220],alim:25,temp:"Sin datos",mad:7,pico:[2,8],rent:10,vida:[2,3],ventajas:["Genética propia"],desventajas:["Sin verificar"]}};
 const ABBR={"rhode island red":"RIR","plymouth rock":"Barred","leghorn":"Leg","sussex":"Sus","wyandotte":"Wyan","orpington":"Orp","brahma":"Brah","araucana":"Arau","sedosa de japón":"Silkie","ponedora híbrida":"Ponedora","kikiriki":"Kiki","otra / criolla":"Criolla","japónica (coturnix japonica)":"Jap","europea (coturnix coturnix)":"Eur","gigante":"Gig","blanca inglesa":"Blanca"};
 const ab=n=>ABBR[n.toLowerCase()]||n;
 const CRUCES_NOMBRES={
  gallina:[
-  {m:["rhode island red"],h:["sussex"],sexlink:"color",nombres:["Red Sex Link","Rhode × Sussex roja","Cruce rojo sexable"]},
+  {m:["rhode island red"],h:["sussex"],sexlink:"color",nombres:["Red Sex Link","Rhode × Sussex","Cruce rojo sexable"]},
   {m:["rhode island red"],h:["wyandotte"],sexlink:"color",nombres:["Golden Comet","Gold Sex Link","Cometa dorada"]},
-  {m:["plymouth rock"],h:["rhode island red","orpington"],sexlink:"color",nombres:["Black Sex Link","Black Rock","Cruce negro sexable"]},
-  {m:["araucana"],h:["rhode island red","sussex","plymouth rock","wyandotte","orpington","ponedora híbrida"],nombres:["Easter Egger","Araucana mestiza","Cruce de huevos verdes"]},
+  {m:["plymouth rock"],h:["rhode island red","orpington"],sexlink:"color",nombres:["Black Sex Link","Black Rock","Cruce negro"]},
+  {m:["araucana"],h:["rhode island red","sussex","plymouth rock","wyandotte","orpington","ponedora híbrida"],nombres:["Easter Egger","Araucana mestiza","Cruce huevos verdes"]},
   {m:["rhode island red"],h:["araucana"],nombres:["Olive Egger","Araucana roja","Cruce verde oliva"]}
  ],
  codorniz:[
-  {m:["japónica (coturnix japonica)"],h:["gigante","blanca inglesa"],nombres:["Híbrido ponedor japonés","Coturnix mejorada","Cruce japo-mestizo"]},
-  {m:["gigante"],h:["japónica (coturnix japonica)"],nombres:["Codorniz ponedora pesada","Híbrido gigante-ponedor","Coturnix doble propósito"]}
+  {m:["japónica (coturnix japonica)"],h:["gigante","blanca inglesa"],nombres:["Híbrido ponedor","Coturnix mejorada","Japo-mestizo"]},
+  {m:["gigante"],h:["japónica (coturnix japonica)"],nombres:["Codorniz pesada","Híbrido gigante","Doble propósito"]}
  ]};
 
 /* ============ AUTH ============ */
@@ -406,34 +480,35 @@ $('#form-auth').addEventListener('submit',async e=>{
   const email=$('#a-email').value.trim(),pass=$('#a-pass').value;
   const modo=$('#form-auth').dataset.modo;
   const btn=$('#btn-auth');btn.disabled=true;
-  const originalHTML=btn.innerHTML;btn.innerHTML='<span class="loader"></span>Procesando…';
+  const orig=btn.innerHTML;btn.innerHTML='<span class="loader"></span>Procesando…';
   $('#auth-msg').className='mensaje';
   try{
     if(modo==='register'){
       const nombre=$('#a-nombre').value.trim(),pais=$('#a-pais').value.trim();
-      if(!nombre){throw new Error('El nombre es obligatorio');}
+      if(!nombre)throw new Error('El nombre es obligatorio');
       const {error}=await sb.auth.signUp({email,password:pass,options:{data:{nombre,pais}}});
       if(error)throw error;
       $('#auth-msg').className='mensaje ok';
-      $('#auth-msg').textContent='✅ Cuenta creada. Espera la activación del administrador o solicita una prueba.';
+      $('#auth-msg').textContent='✅ Cuenta creada. Espera la activación del administrador.';
     }else{
       const {error}=await sb.auth.signInWithPassword({email,password:pass});
       if(error)throw error;
     }
   }catch(err){
     $('#auth-msg').className='mensaje error';
-    $('#auth-msg').textContent='❌ '+(err.message||'Error al iniciar sesión');
+    $('#auth-msg').textContent='❌ '+(err.message||'Error');
   }finally{
-    btn.disabled=false;btn.innerHTML=originalHTML;
+    btn.disabled=false;btn.innerHTML=orig;
   }
 });
 
 async function cerrarSesion(){
-  await sb.auth.signOut();
-  location.reload();
+  confirmar('¿Cerrar sesión?','Se cerrará tu sesión en este dispositivo.','Salir',async()=>{
+    await sb.auth.signOut();location.reload();
+  });
 }
 
-/* ============ INICIO Y ESTADO DE CUENTA ============ */
+/* ============ CARGAR DATOS ============ */
 async function cargarDatos(){
   const [a,c,r,cfg,p]=await Promise.all([
     sb.from('animales').select('*').order('creado_en',{ascending:false}),
@@ -442,24 +517,27 @@ async function cargarDatos(){
     sb.from('config').select('*').single(),
     sb.from('profiles').select('*').eq('id',usuario.id).single()
   ]);
+  if(a.error||p.error){
+    if(a.error?.message?.includes('baneada')||p.error?.message?.includes('baneada')){
+      perfil={baneado:true};return;
+    }
+    throw a.error||p.error;
+  }
   animales=a.data||[];cruces=c.data||[];registro=r.data||[];
-  config=cfg.data||{precio_mes:5,precio_anual:48,horas_prueba:24,moneda:'$',banco_info:'Datos bancarios pendientes'};
+  config=cfg.data||{precio_mes:5,precio_anual:48,horas_prueba:24,moneda:'$',banco_info:'Contacta al administrador.'};
   perfil=p.data||{role:'user',estado:'pendiente'};
 }
 
 function estadoUsuario(){
   if(!perfil)return'pendiente';
+  if(perfil.baneado)return'baneado';
   if(perfil.role==='admin')return'admin';
   if(perfil.estado==='activo'){
-    if(perfil.vence_en){
-      const vence=new Date(perfil.vence_en);
-      if(vence<new Date())return'vencido';
-    }
+    if(perfil.vence_en&&new Date(perfil.vence_en)<new Date())return'vencido';
     return'activo';
   }
   if(perfil.es_prueba&&perfil.vence_en){
-    const vence=new Date(perfil.vence_en);
-    if(vence<new Date())return'prueba_expirada';
+    if(new Date(perfil.vence_en)<new Date())return'prueba_expirada';
     return'prueba';
   }
   return perfil.estado||'pendiente';
@@ -469,33 +547,34 @@ function mostrarBloqueo(){
   const est=estadoUsuario();
   const cont=$('#estado-bloqueado');
   const mon=config.moneda||'$';
-  const banco=esc(config.banco_info||'Contacta al administrador para conocer los datos bancarios.');
+  const banco=esc(config.banco_info||'Contacta al administrador.');
   let html='';
-  if(est==='pendiente'){
-    html=`<h2>⏳ Cuenta pendiente de activación</h2>
-      <p>Tu cuenta se creó correctamente. Para activarla, realiza una transferencia y contacta al administrador con el comprobante.</p>
+  if(est==='baneado'){
+    html=`<h2>🚫 Cuenta suspendida</h2>
+      <p>Tu cuenta ha sido suspendida permanentemente por incumplimiento de las normas.</p>
+      <p style="margin-top:10px"><b>Razón:</b> ${esc(perfil.razon_baneo||'No especificada')}</p>
+      <p style="color:var(--rojo);margin-top:14px">No podrás crear otra cuenta con este correo.</p>`;
+  }else if(est==='pendiente'){
+    html=`<h2>⏳ Cuenta pendiente de activación</h2><p>Realiza una transferencia y contacta al administrador con el comprobante.</p>
       <div class="planes">
-        <div class="plan"><h3>Mensual</h3><div class="precio">${mon}${config.precio_mes}</div><div class="desc">30 días de acceso</div></div>
+        <div class="plan"><h3>Mensual</h3><div class="precio">${mon}${config.precio_mes}</div><div class="desc">30 días</div></div>
         <div class="plan destacado"><h3>Anual</h3><div class="precio">${mon}${config.precio_anual}</div><div class="desc">365 días · Ahorras ${mon}${config.precio_mes*12-config.precio_anual}</div></div>
       </div>
-      <div class="plan-box"><b>💳 Datos para transferencia:</b><pre style="white-space:pre-wrap;margin-top:8px;font-family:inherit">${banco}</pre></div>
-      <p>Una vez hecho el pago, el administrador activará tu cuenta y recibirás acceso completo.</p>`;
+      <div class="plan-box"><b>💳 Datos bancarios:</b><pre style="white-space:pre-wrap;margin-top:8px;font-family:inherit">${banco}</pre></div>`;
   }else if(est==='vencido'){
-    html=`<h2>🔒 Suscripción vencida</h2>
-      <p>Tu acceso expiró el ${fechaBonitaTS(perfil.vence_en)}. <b>Tus datos siguen guardados</b> y estarán intactos cuando renueves.</p>
+    html=`<h2>🔒 Suscripción vencida</h2><p>Tu acceso expiró el ${fechaBonitaTS(perfil.vence_en)}. <b>Tus datos están guardados</b>.</p>
       <div class="planes">
         <div class="plan"><h3>Renovar 1 mes</h3><div class="precio">${mon}${config.precio_mes}</div></div>
         <div class="plan destacado"><h3>Renovar 1 año</h3><div class="precio">${mon}${config.precio_anual}</div></div>
       </div>
-      <div class="plan-box"><b>💳 Datos para transferencia:</b><pre style="white-space:pre-wrap;margin-top:8px;font-family:inherit">${banco}</pre></div>`;
+      <div class="plan-box"><b>💳 Datos bancarios:</b><pre style="white-space:pre-wrap;margin-top:8px;font-family:inherit">${banco}</pre></div>`;
   }else if(est==='prueba_expirada'){
-    html=`<h2>⏰ Prueba finalizada</h2>
-      <p>Tu período de prueba terminó el ${fechaBonitaTS(perfil.vence_en)}. Si deseas seguir usando la plataforma, puedes comprar una suscripción. <b>Tus datos siguen guardados</b>.</p>
+    html=`<h2>⏰ Prueba finalizada</h2><p>Tu prueba terminó el ${fechaBonitaTS(perfil.vence_en)}. <b>Tus datos están guardados</b>.</p>
       <div class="planes">
         <div class="plan"><h3>Mensual</h3><div class="precio">${mon}${config.precio_mes}</div></div>
         <div class="plan destacado"><h3>Anual</h3><div class="precio">${mon}${config.precio_anual}</div></div>
       </div>
-      <div class="plan-box"><b>💳 Datos para transferencia:</b><pre style="white-space:pre-wrap;margin-top:8px;font-family:inherit">${banco}</pre></div>`;
+      <div class="plan-box"><b>💳 Datos bancarios:</b><pre style="white-space:pre-wrap;margin-top:8px;font-family:inherit">${banco}</pre></div>`;
   }
   cont.innerHTML=html;
   $$('.vista').forEach(v=>v.style.display='none');
@@ -512,11 +591,11 @@ function mostrarApp(){
     prueba:['badge badge-prueba','🧪 Prueba'],
     prueba_expirada:['badge badge-vencido','⏰ Prueba vencida'],
     vencido:['badge badge-vencido','🔒 Vencida'],
-    pendiente:['badge badge-pendiente','⏳ Pendiente']
+    pendiente:['badge badge-pendiente','⏳ Pendiente'],
+    baneado:['badge badge-baneado','🚫 Baneada']
   };
   const [cls,txt]=badges[est]||badges.pendiente;
-  $('#user-badge').className=cls;
-  $('#user-badge').textContent=txt;
+  $('#user-badge').className=cls;$('#user-badge').textContent=txt;
   const vence=perfil.vence_en?` · vence ${fechaBonitaTS(perfil.vence_en)}`:'';
   $('#user-datos').innerHTML=`${esc(perfil.nombre||usuario.email)}${vence}`;
   $('#tab-admin').style.display=perfil.role==='admin'?'inline-block':'none';
@@ -536,27 +615,41 @@ function mostrarApp(){
 async function renderAdmin(){
   const {data:perfiles}=await sb.from('profiles').select('*').order('creado_en',{ascending:false});
   const cont=$('#lista-usuarios');
-  if(!perfiles||!perfiles.length){cont.innerHTML='<p>Sin usuarios todavía.</p>';return;}
-  cont.innerHTML=perfiles.map(p=>{
-    const vencido=p.vence_en&&new Date(p.vence_en)<new Date()?'<span class="badge badge-vencido">vencido</span>':'';
-    const estado=p.estado==='activo'?'<span class="badge badge-activo">activo</span>':(p.es_prueba?'<span class="badge badge-prueba">prueba</span>':'<span class="badge badge-pendiente">pendiente</span>');
-    return `<div class="usuario-row">
-      <div class="usuario-info">
-        <b>${esc(p.nombre||'Sin nombre')} ${p.role==='admin'?'<span class="badge badge-admin">admin</span>':''}</b>
-        <span>${esc(p.email)} · ${p.pais||'—'} · ${estado} ${vencido}</span>
-        <span>Vence: ${p.vence_en?fechaBonitaTS(p.vence_en):'—'}</span>
-      </div>
-      <div class="usuario-actions">
-        ${p.role!=='admin'?`
-          <button onclick="activarUsuario('${p.id}',30)">+30 días</button>
-          <button onclick="activarUsuario('${p.id}',90)">+90 días</button>
-          <button onclick="activarUsuario('${p.id}',365)">+1 año</button>
-          <button onclick="activarPrueba('${p.id}')">🧪 Prueba</button>
-          <button class="danger" onclick="borrarUsuario('${p.id}')">🗑️ Borrar</button>
-        `:'<span style="color:var(--gris);font-size:.85rem">Usuario raíz</span>'}
-      </div>
-    </div>`;
-  }).join('');
+  if(!perfiles||!perfiles.length){cont.innerHTML='<p>Sin usuarios.</p>';}else{
+    cont.innerHTML=perfiles.map(p=>{
+      const vencido=p.vence_en&&new Date(p.vence_en)<new Date()?'<span class="badge badge-vencido">vencido</span>':'';
+      let estado;
+      if(p.baneado)estado='<span class="badge badge-baneado">baneado</span>';
+      else if(p.estado==='activo')estado='<span class="badge badge-activo">activo</span>';
+      else if(p.es_prueba)estado='<span class="badge badge-prueba">prueba</span>';
+      else estado='<span class="badge badge-pendiente">pendiente</span>';
+      const isRoot=p.role==='admin';
+      return `<div class="usuario-row ${p.baneado?'baneado':''}">
+        <div class="usuario-info">
+          <b>${esc(p.nombre||'Sin nombre')} ${isRoot?'<span class="badge badge-admin">admin</span>':''}</b>
+          <span>${esc(p.email)} · ${p.pais||'—'} · ${estado} ${vencido}</span>
+          <span>Vence: ${p.vence_en?fechaBonitaTS(p.vence_en):'—'}</span>
+          ${p.razon_baneo?`<span style="color:var(--rojo)">Razón baneo: ${esc(p.razon_baneo)}</span>`:''}
+        </div>
+        <div class="usuario-actions">
+          ${isRoot?'<span style="color:var(--gris);font-size:.85rem">Raíz</span>':`
+            ${p.baneado?`<button onclick="desbanearUsuario('${p.id}')">✅ Desbanear</button>`:`
+              <button onclick="activarUsuario('${p.id}',30)">+30 días</button>
+              <button onclick="activarUsuario('${p.id}',90)">+90 días</button>
+              <button onclick="activarUsuario('${p.id}',365)">+1 año</button>
+              <button onclick="activarUsuario('${p.id}',3650)">♾️ Ilimitado</button>
+              <button class="warn" onclick="activarPrueba('${p.id}')">🧪 Prueba</button>
+              <button class="block" onclick="deshabilitarUsuario('${p.id}')">🔒 Deshabilitar</button>
+              <button class="danger" onclick="banearUsuario('${p.id}')">🚫 Banear</button>
+              <button class="danger" onclick="borrarUsuario('${p.id}')">🗑️ Borrar</button>
+            `}
+          `}
+        </div>
+      </div>`;
+    }).join('');
+  }
+  const {data:baneados}=await sb.from('correos_baneados').select('*').order('creado_en',{ascending:false});
+  $('#lista-baneados').innerHTML=baneados&&baneados.length?`<div class="lista-baneados"><h4>🚫 ${baneados.length} correo(s) baneados</h4>`+baneados.map(b=>`<div class="baneado-item"><div><b>${esc(b.email)}</b><div class="detalle">${esc(b.razon||'Sin razón')}</div></div><button class="btn btn-sec" onclick="desbanearCorreo('${b.id}','${esc(b.email)}')">Quitar</button></div>`).join('')+`</div>`:'<div class="lista-baneados"><h4>🚫 Sin correos baneados</h4><p style="font-size:.88rem">Cuando banes un usuario, su correo aparecerá aquí.</p></div>';
   $('#cfg-mes').value=config.precio_mes;
   $('#cfg-anual').value=config.precio_anual;
   $('#cfg-prueba').value=config.horas_prueba;
@@ -564,55 +657,117 @@ async function renderAdmin(){
   $('#cfg-banco').value=config.banco_info;
 }
 
-async function activarUsuario(id,dias){
-  const vence=new Date();vence.setDate(vence.getDate()+dias);
-  const {error}=await sb.from('profiles').update({estado:'activo',es_prueba:false,activado_en:new Date().toISOString(),vence_en:vence.toISOString()}).eq('id',id);
-  if(error)return alert('Error: '+error.message);
-  renderAdmin();
+function activarUsuario(id,dias){
+  const desc=dias===3650?'ilimitado (10 años)':`${dias} días`;
+  confirmar(`¿Activar ${desc}?`,`Se extenderá el acceso del usuario por ${desc}. El usuario recibirá acceso inmediato.`,'Activar',async()=>{
+    const vence=new Date();vence.setDate(vence.getDate()+dias);
+    const {error}=await sb.from('profiles').update({estado:'activo',es_prueba:false,baneado:false,activado_en:new Date().toISOString(),vence_en:vence.toISOString()}).eq('id',id);
+    if(error)return alert('Error: '+error.message);
+    renderAdmin();
+  });
 }
-async function activarPrueba(id){
+function activarPrueba(id){
   const horas=prompt('Horas de prueba:',config.horas_prueba||24);
   if(!horas)return;
-  const vence=new Date();vence.setHours(vence.getHours()+parseInt(horas));
-  const {error}=await sb.from('profiles').update({estado:'activo',es_prueba:true,activado_en:new Date().toISOString(),vence_en:vence.toISOString()}).eq('id',id);
-  if(error)return alert('Error: '+error.message);
-  renderAdmin();
+  confirmar('¿Asignar prueba?',`El usuario tendrá acceso de prueba por ${horas} horas.`,'Asignar',async()=>{
+    const vence=new Date();vence.setHours(vence.getHours()+parseInt(horas));
+    const {error}=await sb.from('profiles').update({estado:'activo',es_prueba:true,baneado:false,activado_en:new Date().toISOString(),vence_en:vence.toISOString()}).eq('id',id);
+    if(error)return alert('Error: '+error.message);
+    renderAdmin();
+  });
 }
-async function borrarUsuario(id){
-  if(!confirm('¿Borrar este usuario y TODOS sus datos? Esta acción NO se puede deshacer.'))return;
-  await sb.from('animales').delete().eq('user_id',id);
-  await sb.from('cruces').delete().eq('user_id',id);
-  await sb.from('registro').delete().eq('user_id',id);
-  await sb.from('profiles').delete().eq('id',id);
-  renderAdmin();
+function deshabilitarUsuario(id){
+  confirmar('¿Deshabilitar cuenta?','El usuario perderá acceso inmediatamente pero sus datos se conservarán. Podrás reactivarlo cuando quieras.','Deshabilitar',async()=>{
+    const {error}=await sb.from('profiles').update({estado:'pendiente',es_prueba:false,vence_en:null}).eq('id',id);
+    if(error)return alert('Error: '+error.message);
+    renderAdmin();
+  },'prim');
 }
-async function guardarConfig(){
-  const {error}=await sb.from('config').update({
-    precio_mes:parseFloat($('#cfg-mes').value)||5,
-    precio_anual:parseFloat($('#cfg-anual').value)||48,
-    horas_prueba:parseInt($('#cfg-prueba').value)||24,
-    moneda:$('#cfg-moneda').value||'$',
-    banco_info:$('#cfg-banco').value||''
-  }).eq('id',1);
-  if(error)return alert('Error: '+error.message);
-  alert('Configuración guardada');
+async function banearUsuario(id){
+  const razon=prompt('Razón del baneo (se guardará y mostrará al usuario):');
+  if(razon===null)return;
+  confirmar('⚠️ ¿Banear permanentemente?','<b>Esta acción es irreversible.</b> El usuario perderá acceso PARA SIEMPRE, su correo quedará en la lista negra y no podrá volver a registrarse. Sus datos actuales serán inaccesibles.','Banear permanentemente',async()=>{
+    const {data:p}=await sb.from('profiles').select('email').eq('id',id).single();
+    const {error}=await sb.from('profiles').update({baneado:true,razon_baneo:razon||'Sin razón especificada',baneado_por:usuario.id,estado:'pendiente'}).eq('id',id);
+    if(error)return alert('Error: '+error.message);
+    await sb.from('correos_baneados').insert({email:p.email,razon:razon||''});
+    renderAdmin();
+  },'danger','<div class="warn">⚠️ El correo nunca más podrá usarse en la plataforma.</div>');
 }
-async function crearPrueba(){
+async function desbanearUsuario(id){
+  confirmar('¿Desbanear usuario?','Se le quitará el baneo y quedará como pendiente. Podrás activarlo normalmente.','Desbanear',async()=>{
+    const {data:p}=await sb.from('profiles').select('email').eq('id',id).single();
+    await sb.from('correos_baneados').delete().eq('email',p.email);
+    const {error}=await sb.from('profiles').update({baneado:false,razon_baneo:null}).eq('id',id);
+    if(error)return alert('Error: '+error.message);
+    renderAdmin();
+  });
+}
+async function desbanearCorreo(id,email){
+  confirmar('¿Quitar de la lista negra?',`El correo <b>${esc(email)}</b> podrá volver a registrarse.`,'Quitar',async()=>{
+    await sb.from('correos_baneados').delete().eq('id',id);
+    renderAdmin();
+  });
+}
+function borrarUsuario(id){
+  confirmar('⚠️ ¿Borrar usuario y TODOS sus datos?','Se eliminarán <b>todos los animales, cruces y registros</b> de este usuario. Esta acción NO se puede deshacer. Si solo quieres bloquearlo, usa "Deshabilitar".','Borrar definitivamente',async()=>{
+    await sb.from('animales').delete().eq('user_id',id);
+    await sb.from('cruces').delete().eq('user_id',id);
+    await sb.from('registro').delete().eq('user_id',id);
+    await sb.from('profiles').delete().eq('id',id);
+    renderAdmin();
+  },'danger','<div class="warn">⚠️ Todos los datos de este usuario se perderán para siempre.</div>');
+}
+function confirmarGuardarConfig(){
+  confirmar('¿Guardar configuración?','Los nuevos precios y datos bancarios se mostrarán a todos los usuarios inmediatamente.','Guardar',async()=>{
+    const {error}=await sb.from('config').update({
+      precio_mes:parseFloat($('#cfg-mes').value)||5,
+      precio_anual:parseFloat($('#cfg-anual').value)||48,
+      horas_prueba:parseInt($('#cfg-prueba').value)||24,
+      moneda:$('#cfg-moneda').value||'$',
+      banco_info:$('#cfg-banco').value||''
+    }).eq('id',1);
+    if(error)return alert('Error: '+error.message);
+    alert('✅ Configuración guardada');
+    const {data}=await sb.from('config').select('*').single();
+    config=data;
+    renderAdmin();renderPlanesLanding();
+  });
+}
+function confirmarCrearPrueba(){
   const email=$('#pr-email').value.trim(),pass=$('#pr-pass').value,nombre=$('#pr-nombre').value.trim();
   const horas=parseInt($('#pr-horas').value)||24;
   if(!email||!pass)return alert('Correo y contraseña son obligatorios');
-  const vence=new Date();vence.setHours(vence.getHours()+horas);
-  const {data,error}=await sb.auth.admin.createUser({
-    email,password:pass,email_confirm:true,
-    user_metadata:{nombre}
+  confirmar('¿Crear cuenta de prueba?',`Se creará la cuenta <b>${esc(email)}</b> con acceso de ${horas} horas.`,'Crear',async()=>{
+    const vence=new Date();vence.setHours(vence.getHours()+horas);
+    const {data,error}=await sb.auth.admin.createUser({email,password:pass,email_confirm:true,user_metadata:{nombre}});
+    if(error)return alert('Error: '+error.message);
+    await sb.from('profiles').update({estado:'activo',es_prueba:true,activado_en:new Date().toISOString(),vence_en:vence.toISOString()}).eq('id',data.user.id);
+    alert(`✅ Cuenta creada: ${email}\nVence: ${fechaBonitaTS(vence)}\nContraseña: ${pass}`);
+    $('#pr-email').value='';$('#pr-nombre').value='';
+    renderAdmin();
   });
-  if(error)return alert('Error: '+error.message);
-  await sb.from('profiles').update({
-    estado:'activo',es_prueba:true,activado_en:new Date().toISOString(),vence_en:vence.toISOString()
-  }).eq('id',data.user.id);
-  alert(`Cuenta de prueba creada: ${email}\nVence: ${fechaBonitaTS(vence)}\nContraseña: ${pass}`);
-  $('#pr-email').value='';$('#pr-nombre').value='';
-  renderAdmin();
+}
+
+/* ============ PLANES EN LOGIN ============ */
+function renderPlanesLanding(){
+  const mon=config.moneda||'$';
+  $('#planes-landing-lista').innerHTML=`
+    <div class="plan-landing">
+      <h3>Mensual</h3>
+      <div class="precio">${mon}${config.precio_mes}</div>
+      <ul><li>30 días de acceso</li><li>Animales ilimitados</li><li>Todos los módulos</li></ul>
+    </div>
+    <div class="plan-landing destacado">
+      <h3>Anual <span class="ahorro">Ahorras ${mon}${config.precio_mes*12-config.precio_anual}</span></h3>
+      <div class="precio">${mon}${config.precio_anual}</div>
+      <ul><li>365 días de acceso</li><li>Mejor precio por día</li><li>Prioridad en soporte</li></ul>
+    </div>
+    <div class="plan-landing">
+      <h3>🧪 Prueba gratis</h3>
+      <div class="precio">${config.horas_prueba}h</div>
+      <ul><li>Solicítala al administrador</li><li>Acceso completo</li></ul>
+    </div>`;
 }
 
 /* ============ ANIMALES ============ */
@@ -626,12 +781,12 @@ function tarjetaHTML(a){
   return `<div class="tarjeta">
     <div class="card-btns">
       <button class="mini" onclick="editarAnimal('${a.id}')">✏️</button>
-      <button class="mini" onclick="eliminarAnimal('${a.id}')">🗑️</button>
+      <button class="mini" onclick="confirmarEliminarAnimal('${a.id}')">🗑️</button>
     </div>
     <div class="num">${e} Nº ${esc(a.numero)}</div>
     <div class="nombre">${s} · ${esc(a.raza||'Sin raza definida')}</div>
     <div class="detalle">📅 Nacimiento: ${a.nacimiento?fechaBonita(a.nacimiento)+' · '+edad(a.nacimiento):'Sin fecha'}</div>
-    ${a.color?`<div class="detalle">🎨 Identificación: ${esc(a.color)}</div>`:''}
+    ${a.color?`<div class="detalle">🎨 ${esc(a.color)}</div>`:''}
     ${a.notas?`<div class="detalle">📝 ${esc(a.notas)}</div>`:''}
   </div>`;
 }
@@ -647,18 +802,18 @@ function render(){
   let lista=animales.filter(a=>filtro==='todos'||a.especie===filtro);
   if(busqueda)lista=lista.filter(a=>[a.numero,a.color,a.raza,a.notas,a.especie].join(' ').toLowerCase().includes(busqueda));
   $('#lista-animales').innerHTML=lista.length?lista.map(tarjetaHTML).join('')
-    :`<div class="vacio">🪺 ${busqueda?'Sin resultados.':'No hay animales registrados.'}<br>${busqueda?'Prueba otra búsqueda.':'Pulsa <b>+ Nuevo animal</b> para empezar.'}</div>`;
+    :`<div class="vacio">🪺 ${busqueda?'Sin resultados.':'No hay animales registrados.'}<br>${busqueda?'Prueba otra búsqueda.':'Pulsa <b>+ Nuevo animal</b>.'}</div>`;
 }
-async function eliminarAnimal(id){
+function confirmarEliminarAnimal(id){
   const a=animales.find(x=>x.id===id);if(!a)return;
-  if(!confirm(`¿Eliminar al animal Nº ${a.numero}?`))return;
-  await sb.from('animales').delete().eq('id',id);
-  animales=animales.filter(x=>x.id!==id);
-  log('🗑️',`Animal Nº ${a.numero} eliminado`);render();renderRazas();
+  confirmar(`¿Eliminar Nº ${a.numero}?`,`Se eliminará permanentemente al animal ${a.especie==='gallina'?'🐔':'🐦'} Nº ${a.numero} de tu registro.`,'Eliminar',async()=>{
+    await sb.from('animales').delete().eq('id',id);
+    animales=animales.filter(x=>x.id!==id);
+    log('🗑️',`Animal Nº ${a.numero} eliminado`);render();renderRazas();
+  },'danger');
 }
 function abrirModal(){
-  editandoId=null;
-  $('#form-animal').reset();actualizarDatalist();
+  editandoId=null;$('#form-animal').reset();actualizarDatalist();
   $('#modal-titulo').textContent='+ Nuevo animal';
   $('#btn-guardar-animal').textContent='Guardar animal';
   $('#overlay').classList.add('abierto');$('#f-numero').focus();
@@ -669,7 +824,7 @@ function editarAnimal(id){
   $('#f-especie').value=a.especie;actualizarDatalist();
   $('#f-sexo').value=a.sexo;$('#f-numero').value=a.numero;$('#f-color').value=a.color;
   $('#f-raza').value=a.raza;$('#f-fecha').value=a.nacimiento;$('#f-notas').value=a.notas;
-  $('#modal-titulo').textContent='✏️ Editar animal Nº '+a.numero;
+  $('#modal-titulo').textContent='✏️ Editar Nº '+a.numero;
   $('#btn-guardar-animal').textContent='Guardar cambios';
   $('#overlay').classList.add('abierto');
 }
@@ -680,23 +835,13 @@ function actualizarDatalist(){
 $('#form-animal').addEventListener('submit',async e=>{
   e.preventDefault();
   const btn=$('#btn-guardar-animal');btn.disabled=true;
-  const datos={
-    user_id:usuario.id,
-    especie:$('#f-especie').value,
-    sexo:$('#f-sexo').value,
-    numero:$('#f-numero').value.trim(),
-    color:$('#f-color').value.trim(),
-    raza:$('#f-raza').value.trim(),
-    nacimiento:$('#f-fecha').value||null,
-    notas:$('#f-notas').value.trim()
-  };
+  const datos={user_id:usuario.id,especie:$('#f-especie').value,sexo:$('#f-sexo').value,numero:$('#f-numero').value.trim(),color:$('#f-color').value.trim(),raza:$('#f-raza').value.trim(),nacimiento:$('#f-fecha').value||null,notas:$('#f-notas').value.trim()};
   if(!datos.numero){alert('Número obligatorio');btn.disabled=false;return;}
   try{
     if(editandoId){
       const {error}=await sb.from('animales').update(datos).eq('id',editandoId);
       if(error)throw error;
-      const i=animales.findIndex(a=>a.id===editandoId);
-      animales[i]={...animales[i],...datos};
+      animales[animales.findIndex(a=>a.id===editandoId)]={...animales.find(a=>a.id===editandoId),...datos};
       log('✏️',`Animal Nº ${datos.numero} editado`);
     }else{
       const id=String(Date.now());
@@ -706,7 +851,7 @@ $('#form-animal').addEventListener('submit',async e=>{
       log('➕',`Animal Nº ${datos.numero} agregado`);
     }
     cerrarModal();render();renderRazas();
-  }catch(err){alert('Error al guardar: '+err.message);}
+  }catch(err){alert('Error: '+err.message);}
   btn.disabled=false;
 });
 
@@ -735,14 +880,14 @@ function buscarNombres(esp,m,h,gen){
     }
     return{nombres:[`Híbrido ${ab(m)}×${ab(h)}`,`Mestiza 50/50 ${ab(m)}-${ab(h)}`],sexlink:null};
   }
-  if(gen==='F2')return{nombres:[`Híbrido F2 (${ab(m)}×${ab(h)})`,'Segunda generación mestiza','F2 segregante'],sexlink:null};
-  return{nombres:[`Retrocruce ${ab(m)}×${ab(h)}`,'Mestiza 75/25','Backcross'],sexlink:null};
+  if(gen==='F2')return{nombres:[`Híbrido F2 (${ab(m)}×${ab(h)})`,'Segunda generación'],sexlink:null};
+  return{nombres:[`Retrocruce ${ab(m)}×${ab(h)}`,'Mestiza 75/25'],sexlink:null};
 }
 function sexoInfo(esp,gen,sexlink){
-  if(gen!=='F1')return{ok:false,txt:`En generación ${gen} el sexado al nacer no es confiable. Usa cloaca o caracteres a las 6–10 semanas.`};
-  if(sexlink==='color')return{ok:true,txt:'✅ SEXABLE AL NACER POR COLOR del plumón. Confiable al 100%.'};
-  if(esp==='codorniz')return{ok:false,txt:'No al nacer. Se distingue por color del plumaje a las 3–4 semanas o por cloaca en adultos.'};
-  return{ok:false,txt:'No sexable por color al nacer. Opciones: cloaca (día 1), crecimiento de plumas, cresta desde 6–10 semanas.'};
+  if(gen!=='F1')return{ok:false,txt:`En ${gen} el sexado al nacer no es confiable. Usa cloaca o caracteres a las 6–10 semanas.`};
+  if(sexlink==='color')return{ok:true,txt:'✅ SEXABLE AL NACER POR COLOR del plumón. 100% confiable.'};
+  if(esp==='codorniz')return{ok:false,txt:'No al nacer. Color de plumaje a las 3–4 semanas o cloaca en adultos.'};
+  return{ok:false,txt:'No sexable por color al nacer. Cloaca (día 1), plumas, cresta desde 6–10 semanas.'};
 }
 function cruzarDatos(esp,a,b){
   const p=(x,y)=>Math.round((x+y)/2),pr=(x,y)=>[Math.round((x[0]+y[0])/2),Math.round((x[1]+y[1])/2)];
@@ -773,7 +918,7 @@ function curvaPostura(d){
     <circle cx="${X(d.pi).toFixed(1)}" cy="${Y(d.peak).toFixed(1)}" r="3.5" fill="#d99a2b"/>
     <text x="${X(d.pi).toFixed(1)}" y="${(Y(d.peak)-7).toFixed(1)}" font-size="7.5" text-anchor="middle" fill="#b07d1e" font-weight="bold">PICO ${d.peak}%</text>
     ${ticks}
-    <text x="${((L+R)/2).toFixed(1)}" y="${H-4}" font-size="7.5" text-anchor="middle" fill="#8a8676">Edad (meses) · zona verde = rentable</text>
+    <text x="${((L+R)/2).toFixed(1)}" y="${H-4}" font-size="7.5" text-anchor="middle" fill="#8a8676">Edad (meses) · verde=rentable</text>
   </svg>`;
 }
 const tile=(l,v)=>`<div class="tile"><span class="tl">${l}</span><span class="tv">${v}</span></div>`;
@@ -791,7 +936,7 @@ $('#btn-calcular').addEventListener('click',()=>{
   const nom=buscarNombres(esp,m,h,gen);
   const ia=(RAZAS_INFO[esp]||{})[m]||INFO_DEF[esp],ib=(RAZAS_INFO[esp]||{})[h]||INFO_DEF[esp];
   const d=cruzarDatos(esp,ia,ib);
-  if(gen==='F2')d.desventajas.push('Alta variabilidad (segregación F2)');
+  if(gen==='F2')d.desventajas.push('Alta variabilidad');
   const sx=sexoInfo(esp,gen,nom.sexlink);
   const avgH=Math.round((d.huevos[0]+d.huevos[1])/2);
   const peak=Math.min(96,Math.round(avgH/365*100*1.35));
@@ -806,13 +951,13 @@ $('#btn-calcular').addEventListener('click',()=>{
     <div class="sexo-box ${sx.ok?'sexo-si':''}">🚼 <b>Sexado:</b> ${esc(sx.txt)}</div>
     <div class="tiles">
       ${tile('🥚 Huevos/año',d.huevos[0]+'–'+d.huevos[1])}
-      ${tile('🌾 Alimento diario','≈'+d.alim+' g/día')}
+      ${tile('🌾 Alimento','≈'+d.alim+' g/día')}
       ${tile('📦 Consumo anual',kg+' kg')}
       ${tile('🍽️ Alimento/huevo','≈'+gHuevo+' g')}
-      ${tile('⏱️ Madurez','≈'+d.mad+' semanas')}
-      ${tile('📈 Pico postura','Meses '+d.pico[0]+'–'+d.pico[1])}
-      ${tile('💰 Rentable hasta','Mes '+d.rent)}
-      ${tile('❤️ Vida útil',d.vida[0]+'–'+d.vida[1]+' años')}
+      ${tile('⏱️ Madurez','≈'+d.mad+' sem')}
+      ${tile('📈 Pico','M'+d.pico[0]+'–'+d.pico[1])}
+      ${tile('💰 Rentable hasta','M'+d.rent)}
+      ${tile('❤️ Vida',d.vida[0]+'–'+d.vida[1]+' a')}
     </div>
     <div class="svgwrap"><b>Curva de postura</b>${curvaPostura({madMeses:d.mad/4.33,pi:d.pico[0],pf:d.pico[1],peak,rent:d.rent})}</div>
     <div class="proscons">
@@ -825,18 +970,21 @@ $('#btn-calcular').addEventListener('click',()=>{
 });
 $('#btn-guardar-cruce').addEventListener('click',async()=>{
   if(!ultimoCruce)return;
-  const id=String(Date.now());
-  const {error}=await sb.from('cruces').insert({id,user_id:usuario.id,...ultimoCruce,fecha:new Date().toISOString().slice(0,10)});
-  if(error)return alert('Error: '+error.message);
-  cruces.unshift({id,...ultimoCruce,fecha:new Date().toISOString().slice(0,10)});
-  log('🧮',`Cruce: ${ultimoCruce.nombre}`);
-  ultimoCruce=null;renderCruces();
-  $('#btn-guardar-cruce').style.display='none';
+  confirmar('¿Guardar cruce?',`Se guardará <b>${esc(ultimoCruce.nombre)}</b> (${ultimoCruce.gen}) en tu historial.`,'Guardar',async()=>{
+    const id=String(Date.now());
+    const {error}=await sb.from('cruces').insert({id,user_id:usuario.id,...ultimoCruce,fecha:new Date().toISOString().slice(0,10)});
+    if(error)return alert('Error: '+error.message);
+    cruces.unshift({id,...ultimoCruce,fecha:new Date().toISOString().slice(0,10)});
+    log('🧮',`Cruce: ${ultimoCruce.nombre}`);
+    ultimoCruce=null;renderCruces();
+    $('#btn-guardar-cruce').style.display='none';
+  });
 });
 function eliminarCruce(id){
-  if(!confirm('¿Eliminar cruce?'))return;
-  sb.from('cruces').delete().eq('id',id);
-  cruces=cruces.filter(c=>c.id!==id);renderCruces();
+  confirmar('¿Eliminar cruce?','Se eliminará del historial.','Eliminar',async()=>{
+    await sb.from('cruces').delete().eq('id',id);
+    cruces=cruces.filter(c=>c.id!==id);renderCruces();
+  },'danger');
 }
 function renderCruces(){
   const c=$('#historial-cruces');
@@ -851,14 +999,16 @@ function renderCruces(){
 function renderRegistro(){
   $('#lista-registro').innerHTML=registro.length?registro.map(r=>`<div class="reg-item"><span class="reg-ico">${r.icono}</span><div><div>${esc(r.txt)}</div><div class="detalle">${fechaBonitaTS(r.t)}</div></div></div>`).join(''):'<div class="detalle" style="text-align:center;padding:30px">Sin movimientos todavía.</div>';
 }
-function exportar(){
-  const data={animales,cruces,registro,fecha:new Date().toISOString(),user:perfil};
-  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download='aves-backup-'+new Date().toISOString().slice(0,10)+'.json';
-  a.click();
-  log('📤','Copia exportada');
+function confirmarExportar(){
+  confirmar('¿Exportar copia de seguridad?','Se descargará un archivo JSON con todos tus animales, cruces y registro.','Exportar',()=>{
+    const data={animales,cruces,registro,fecha:new Date().toISOString(),user:perfil};
+    const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);
+    a.download='aves-backup-'+new Date().toISOString().slice(0,10)+'.json';
+    a.click();
+    log('📤','Copia exportada');
+  });
 }
 
 /* ============ NAV ============ */
@@ -871,32 +1021,36 @@ $$('.chip').forEach(c=>c.addEventListener('click',()=>{filtro=c.dataset.f;render
 $('#buscador').addEventListener('input',e=>{busqueda=e.target.value.trim().toLowerCase();render();});
 $('#f-especie').addEventListener('change',actualizarDatalist);
 $('#overlay').addEventListener('click',e=>{if(e.target.id==='overlay')cerrarModal();});
+$('#overlay-confirm').addEventListener('click',e=>{if(e.target.id==='overlay-confirm')cerrarConfirm();});
 
 /* ============ ARRANQUE ============ */
-(async function inicio(){
+(async function(){
   sb.auth.onAuthStateChange(async(evento,sesion)=>{
     if(evento==='SIGNED_OUT'||!sesion){
       usuario=null;
       $('#app').style.display='none';
-      $('#pantalla-auth').style.display='flex';
+      $('#pantalla-auth').style.display='block';
       return;
     }
-    if(evento==='SIGNED_IN'||evento==='TOKEN_REFRESHED'||evento==='INITIAL_SESSION'){
+    if(['SIGNED_IN','TOKEN_REFRESHED','INITIAL_SESSION'].includes(evento)){
       usuario=sesion.user;
       try{
         await cargarDatos();
         mostrarApp();
       }catch(err){
-        alert('Error al cargar datos: '+err.message);
+        alert('Error: '+err.message);
       }
     }
   });
 })();
 
-/* Inicial */
-poblarRazasSelect($('#raza-macho'),'gallina');
-poblarRazasSelect($('#raza-hembra'),'gallina');
-actualizarDatalist();
+(async()=>{
+  const {data}=await sb.from('config').select('*').single();
+  if(data){config=data;renderPlanesLanding();}
+  poblarRazasSelect($('#raza-macho'),'gallina');
+  poblarRazasSelect($('#raza-hembra'),'gallina');
+  actualizarDatalist();
+})();
 </script>
 </body>
 </html>
